@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeMail", "WeMail\WeMail.csproj", "{4B8648F8-CF51-4B45-8019-B9A7A00A1BCF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{56501B1C-3A42-4E8E-B7BC-E67109553FBE} = {56501B1C-3A42-4E8E-B7BC-E67109553FBE}
+		{9A359A34-FCA9-4849-8378-6B7CD3E91B64} = {9A359A34-FCA9-4849-8378-6B7CD3E91B64}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeMail.Contact", "WeMail.Contact\WeMail.Contact.csproj", "{9A359A34-FCA9-4849-8378-6B7CD3E91B64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeMail.Common", "WeMail.Common\WeMail.Common.csproj", "{97D269AF-BC02-4263-B572-B0838C6BF242}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeMail.Schedule", "WeMail.Schedule\WeMail.Schedule.csproj", "{56501B1C-3A42-4E8E-B7BC-E67109553FBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B8648F8-CF51-4B45-8019-B9A7A00A1BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B8648F8-CF51-4B45-8019-B9A7A00A1BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B8648F8-CF51-4B45-8019-B9A7A00A1BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B8648F8-CF51-4B45-8019-B9A7A00A1BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A359A34-FCA9-4849-8378-6B7CD3E91B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A359A34-FCA9-4849-8378-6B7CD3E91B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A359A34-FCA9-4849-8378-6B7CD3E91B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A359A34-FCA9-4849-8378-6B7CD3E91B64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97D269AF-BC02-4263-B572-B0838C6BF242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97D269AF-BC02-4263-B572-B0838C6BF242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97D269AF-BC02-4263-B572-B0838C6BF242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97D269AF-BC02-4263-B572-B0838C6BF242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56501B1C-3A42-4E8E-B7BC-E67109553FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56501B1C-3A42-4E8E-B7BC-E67109553FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56501B1C-3A42-4E8E-B7BC-E67109553FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56501B1C-3A42-4E8E-B7BC-E67109553FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A359A34-FCA9-4849-8378-6B7CD3E91B64} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{56501B1C-3A42-4E8E-B7BC-E67109553FBE} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7EE8F9A-E288-43F0-878B-D6B2404A57C4}
+	EndGlobalSection
+EndGlobal
