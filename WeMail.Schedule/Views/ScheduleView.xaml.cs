@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WeMail.Contact.Views
+namespace WeMail.Schedule.Views
 {
     /// <summary>
     /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class ViewA : UserControl
+    public partial class ScheduleView : UserControl
     {
-        public ViewA()
+        public ScheduleView()
         {
             InitializeComponent();
         }

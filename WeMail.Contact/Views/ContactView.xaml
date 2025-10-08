@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="WeMail.Schedule.Views.ViewA"
+﻿<UserControl x:Class="WeMail.Contact.Views.ContactView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WeMail.Schedule.Views"
+             xmlns:local="clr-namespace:WeMail.Contact.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
@@ -9,8 +9,11 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True" >
     <Grid>
-        <TextBlock Text="{Binding Message}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="8*" />
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="LsbContact" ItemsSource="{Binding Contacts}"/>
+        <ContentControl  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Content="{Binding ElementName=LsbContact,Path=SelectedItem}" FontSize="40" />
     </Grid>
 </UserControl>

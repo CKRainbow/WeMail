@@ -32,7 +32,11 @@ namespace WeMail.ViewModels
         public ModuleInfo ModuleInfo
         {
             get => _moduleInfo;
-            set => SetProperty(ref _moduleInfo, value);
+            set
+            {
+                SetProperty(ref _moduleInfo, value);
+                Navigate(value);
+            }
         }
 
         public DelegateCommand LoadModules
@@ -45,7 +49,7 @@ namespace WeMail.ViewModels
             _regionManager = regionManager;
             _moduleCatalog = moduleCatalog;
 
-            _regionManager.RegisterViewWithRegion("ContentRegion", typeof(Views.PrismUserControl1));
+            //_regionManager.RegisterViewWithRegion("ContentRegion", typeof(Views.PrismUserControl1));
             //_regionManager.RegisterViewWithRegion(
             //    "StackPanelRegion",
             //    typeof(Views.PrismUserControl1)
@@ -60,6 +64,11 @@ namespace WeMail.ViewModels
         {
             var dirModuleCatalog = _moduleCatalog as DirectoryModuleCatalog;
             Modules.AddRange(dirModuleCatalog.Modules);
+        }
+
+        private void Navigate(IModuleInfo moduleInfo)
+        {
+            _regionManager.RequestNavigate("ContentRegion", $"{moduleInfo.ModuleName}View");
         }
     }
 }

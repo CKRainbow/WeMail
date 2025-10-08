@@ -1,14 +1,14 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Prism.Commands;
+using Prism.Mvvm;
 
-namespace WeMail.Contact.ViewModels
+namespace WeMail.Schedule.ViewModels
 {
-    public class ViewAViewModel : BindableBase
+    public class ScheduleViewModel : BindableBase
     {
         private string _message;
         public string Message
@@ -17,7 +17,7 @@ namespace WeMail.Contact.ViewModels
             set { SetProperty(ref _message, value); }
         }
 
-        public ViewAViewModel()
+        public ScheduleViewModel()
         {
             Message = "View A from your Prism Module";
         }
