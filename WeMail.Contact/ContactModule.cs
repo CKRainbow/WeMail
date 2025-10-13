@@ -12,8 +12,6 @@ namespace WeMail.Contact
         {
             var regionManager = containerProvider.Resolve<IRegionManager>();
             var contentRegion = regionManager.Regions["ContentRegion"];
-
-            contentRegion.RequestNavigate(nameof(ContactView));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

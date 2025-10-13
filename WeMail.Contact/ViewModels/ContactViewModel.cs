@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Prism.Commands;
+using System.Diagnostics;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace WeMail.Contact.ViewModels
 {
-    public class ContactViewModel : BindableBase
+    public class ContactViewModel : BindableBase, INavigationAware
     {
         private ObservableCollection<string> _contacts;
 
@@ -36,6 +33,25 @@ namespace WeMail.Contact.ViewModels
         public ContactViewModel()
         {
             Message = "View A from your Prism Module";
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            Debug.WriteLine("Enter ContactView!");
+            var contact = navigationContext.Parameters["Contact"]; // 可以直接使用[]操作符，因为进行过重载，并非是对Dictionary操作
+            if (contact == null)
+                return;
+            Debug.WriteLine($"{contact} Received!");
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            Debug.WriteLine("Leave ContactView!");
         }
     }
 }

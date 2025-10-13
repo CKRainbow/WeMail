@@ -12,8 +12,6 @@ namespace WeMail.Schedule
         {
             var regionManager = containerProvider.Resolve<IRegionManager>();
             var contentRegion = regionManager.Regions["ContentRegion"];
-
-            contentRegion.RequestNavigate(nameof(ScheduleView));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

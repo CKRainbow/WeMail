@@ -18,7 +18,11 @@ namespace WeMail
             return Container.Resolve<MainWindow>();
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterForNavigation<TempViewA>();
+            containerRegistry.RegisterForNavigation<TempViewB>();
+        }
 
         protected override void ConfigureRegionAdapterMappings(
             RegionAdapterMappings regionAdapterMappings

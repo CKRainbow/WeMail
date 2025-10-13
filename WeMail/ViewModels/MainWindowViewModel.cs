@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Security.Policy;
 using Prism.Commands;
 using Prism.Modularity;
 using Prism.Mvvm;
@@ -16,7 +18,13 @@ namespace WeMail.ViewModels
         private readonly IModuleCatalog _moduleCatalog;
         private ModuleInfo _moduleInfo;
 
+        private IRegionNavigationJournal _journal;
+
         private DelegateCommand _loadModules;
+        private DelegateCommand _openViewA;
+        private DelegateCommand _openViewB;
+        private DelegateCommand _goBack;
+        private DelegateCommand _goForward;
 
         public string Title
         {
@@ -41,7 +49,67 @@ namespace WeMail.ViewModels
 
         public DelegateCommand LoadModules
         {
-            get => _loadModules = new DelegateCommand(InitModules);
+            get => _loadModules ??= new(InitModules);
+        }
+
+        public DelegateCommand OpenViewA
+        {
+            get => _openViewA ??= new(OpenViewAAction);
+        }
+
+        public DelegateCommand OpenViewB
+        {
+            get => _openViewB ??= new(OpenViewBAction);
+        }
+
+        public DelegateCommand GoBack
+        {
+            get => _goBack ??= new(GoBackAction);
+        }
+
+        public DelegateCommand GoForward
+        {
+            get => _goForward ??= new(GoForwardAction);
+        }
+
+        private void OpenViewAAction()
+        {
+            _regionManager.RequestNavigate(
+                "ContentRegion",
+                "TempViewA",
+                args =>
+                {
+                    _journal = args.Context.NavigationService.Journal;
+                }
+            );
+        }
+
+        private void OpenViewBAction()
+        {
+            _regionManager.RequestNavigate(
+                "ContentRegion",
+                "TempViewB",
+                args =>
+                {
+                    _journal = args.Context.NavigationService.Journal;
+                }
+            );
+        }
+
+        private void GoBackAction()
+        {
+            if (_journal != null && _journal.CanGoBack)
+            {
+                _journal.GoBack();
+            }
+        }
+
+        private void GoForwardAction()
+        {
+            if (_journal != null && _journal.CanGoForward)
+            {
+                _journal.GoForward();
+            }
         }
 
         public MainWindowViewModel(IRegionManager regionManager, IModuleCatalog moduleCatalog)
@@ -68,7 +136,13 @@ namespace WeMail.ViewModels
 
         private void Navigate(IModuleInfo moduleInfo)
         {
-            _regionManager.RequestNavigate("ContentRegion", $"{moduleInfo.ModuleName}View");
+            var parameter = new NavigationParameters();
+            parameter.Add("Contact", "Hello from MainWindowViewModel");
+            _regionManager.RequestNavigate(
+                "ContentRegion",
+                $"{moduleInfo.ModuleName}View",
+                parameter
+            );
         }
     }
 }
