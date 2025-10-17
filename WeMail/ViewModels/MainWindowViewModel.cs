@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Security.Policy;
+using Microsoft.Extensions.Logging;
 using Prism.Commands;
 using Prism.Modularity;
 using Prism.Mvvm;
@@ -112,8 +113,14 @@ namespace WeMail.ViewModels
             }
         }
 
-        public MainWindowViewModel(IRegionManager regionManager, IModuleCatalog moduleCatalog)
+        public MainWindowViewModel(
+            IRegionManager regionManager,
+            IModuleCatalog moduleCatalog,
+            ILogger logger
+        )
         {
+            logger.LogInformation("Random Informatiom.");
+
             _regionManager = regionManager;
             _moduleCatalog = moduleCatalog;
 

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using Prism.Regions;
 
-namespace WeMail.Common.RegionAdapter
+namespace WeMail.Common.RegionAdapters
 {
     public class StackPanelRegionAdapter : RegionAdapterBase<StackPanel>
     {

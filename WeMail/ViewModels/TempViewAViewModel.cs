@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using Microsoft.Extensions.Logging;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -11,7 +12,12 @@ namespace WeMail.ViewModels
 {
     public class TempViewAViewModel : BindableBase, IConfirmNavigationRequest
     {
-        public TempViewAViewModel() { }
+        ILogger _logger;
+
+        public TempViewAViewModel(ILogger logger)
+        {
+            _logger = logger;
+        }
 
         public void ConfirmNavigationRequest(
             NavigationContext navigationContext,
@@ -37,8 +43,14 @@ namespace WeMail.ViewModels
             return true;
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext) { }
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            _logger.LogInformation("Leaving View A");
+        }
 
-        public void OnNavigatedTo(NavigationContext navigationContext) { }
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            _logger.LogInformation("Arrived at View A");
+        }
     }
 }

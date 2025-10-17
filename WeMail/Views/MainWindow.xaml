@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
+        Style="{StaticResource MaterialDesignWindow}"
         Title="{Binding Title}" Height="600" Width="900" >
     <Window.Resources>
         <Style x:Key="ModuleItemStyle" TargetType="ListBoxItem">
