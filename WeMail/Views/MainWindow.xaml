@@ -30,6 +30,7 @@
         <ListBox Grid.Row="1" ItemsSource="{Binding Modules}" SelectedItem="{Binding ModuleInfo}" ItemContainerStyle="{StaticResource ModuleItemStyle}"/>
         <ContentControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="ContentRegion" />
         <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <Button Width="150" Height="30" Content="Show Dialogue" Command="{Binding ShowDialogue}" />
             <Button Width="150" Height="30" Content="OpenViewA" Command="{Binding OpenViewA}" />
             <Button Width="150" Height="30" Content="OpenViewB" Command="{Binding OpenViewB}" />
             <Button Width="150" Height="30" Content="GoBack" Command="{Binding GoBack}" />

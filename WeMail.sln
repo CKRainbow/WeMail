@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeMail.Common", "WeMail.Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeMail.Schedule", "WeMail.Schedule\WeMail.Schedule.csproj", "{56501B1C-3A42-4E8E-B7BC-E67109553FBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeMail.CustomControls", "WeMail.CustomControls\WeMail.CustomControls.csproj", "{EDB20358-CFAE-4B33-8AB8-059D7D3E8246}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{56501B1C-3A42-4E8E-B7BC-E67109553FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56501B1C-3A42-4E8E-B7BC-E67109553FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56501B1C-3A42-4E8E-B7BC-E67109553FBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDB20358-CFAE-4B33-8AB8-059D7D3E8246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDB20358-CFAE-4B33-8AB8-059D7D3E8246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDB20358-CFAE-4B33-8AB8-059D7D3E8246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDB20358-CFAE-4B33-8AB8-059D7D3E8246}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

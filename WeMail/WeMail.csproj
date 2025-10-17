@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WeMail.Common\WeMail.Common.csproj" />
+    <ProjectReference Include="..\WeMail.CustomControls\WeMail.CustomControls.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="NLog.config">

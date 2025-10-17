@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Security.Policy;
 using Microsoft.Extensions.Logging;
 using Prism.Commands;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 
 namespace WeMail.ViewModels
 {
@@ -17,6 +19,7 @@ namespace WeMail.ViewModels
 
         private readonly IRegionManager _regionManager; // manage the regions of the shell
         private readonly IModuleCatalog _moduleCatalog;
+        private readonly IDialogService _dialogService;
         private ModuleInfo _moduleInfo;
 
         private IRegionNavigationJournal _journal;
@@ -26,6 +29,7 @@ namespace WeMail.ViewModels
         private DelegateCommand _openViewB;
         private DelegateCommand _goBack;
         private DelegateCommand _goForward;
+        private DelegateCommand _showDialogue;
 
         public string Title
         {
@@ -73,6 +77,31 @@ namespace WeMail.ViewModels
             get => _goForward ??= new(GoForwardAction);
         }
 
+        public DelegateCommand ShowDialogue
+        {
+            get => _showDialogue ??= new(ShowDialogueAction);
+        }
+
+        private void ShowDialogueAction()
+        {
+            _dialogService.Show(
+                "MessageDialogueView",
+                new DialogParameters("Value=Hello from MainWindowViewModel"),
+                (r) =>
+                {
+                    var result = r.Result;
+                    if (result == ButtonResult.OK)
+                    {
+                        var parameters = r.Parameters;
+                        Debug.WriteLine(
+                            "Dialog returned OK with message: "
+                                + parameters.GetValue<string>("Message")
+                        );
+                    }
+                }
+            );
+        }
+
         private void OpenViewAAction()
         {
             _regionManager.RequestNavigate(
@@ -116,6 +145,7 @@ namespace WeMail.ViewModels
         public MainWindowViewModel(
             IRegionManager regionManager,
             IModuleCatalog moduleCatalog,
+            IDialogService dialogService,
             ILogger logger
         )
         {
@@ -123,6 +153,7 @@ namespace WeMail.ViewModels
 
             _regionManager = regionManager;
             _moduleCatalog = moduleCatalog;
+            _dialogService = dialogService;
 
             //_regionManager.RegisterViewWithRegion("ContentRegion", typeof(Views.PrismUserControl1));
             //_regionManager.RegisterViewWithRegion(

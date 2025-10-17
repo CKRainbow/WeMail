@@ -9,6 +9,7 @@ using Prism.Modularity;
 using Prism.Regions;
 using WeMail.Common.Helpers;
 using WeMail.Common.RegionAdapters;
+using WeMail.CustomControls;
 using WeMail.Views;
 
 namespace WeMail
@@ -76,6 +77,11 @@ namespace WeMail
             var factory = new NLog.Extensions.Logging.NLogLoggerFactory();
             _logger = factory.CreateLogger("NLog");
             containerRegistry.RegisterInstance(_logger);
+
+            containerRegistry.RegisterDialog<
+                CustomControls.Views.MessageDialogueView,
+                CustomControls.CustomControls.MessageDialogueControl
+            >();
         }
 
         protected override void ConfigureRegionAdapterMappings(
