@@ -11,9 +11,18 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1" />
             <ColumnDefinition Width="8*" />
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="LsbContact" ItemsSource="{Binding Contacts}"/>
-        <ContentControl  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Content="{Binding ElementName=LsbContact,Path=SelectedItem}" FontSize="40" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Content="添加联系人" Command="{Binding AddContactCommand}" Margin="5" Height="25"/>
+        </StackPanel>
+        <ListBox x:Name="LsbContact" Grid.Row="1"  ItemsSource="{Binding Contacts}"/>
+        <Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Fill="White" Width="1" />
+        <ContentControl  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Content="{Binding ElementName=LsbContact,Path=SelectedItem}" FontSize="40" />
     </Grid>
 </UserControl>

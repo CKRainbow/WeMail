@@ -9,7 +9,9 @@ using Prism.Modularity;
 using Prism.Regions;
 using WeMail.Common.Helpers;
 using WeMail.Common.RegionAdapters;
+using WeMail.Common.User;
 using WeMail.CustomControls;
+using WeMail.ViewModels;
 using WeMail.Views;
 
 namespace WeMail
@@ -82,6 +84,10 @@ namespace WeMail
                 CustomControls.Views.MessageDialogueView,
                 CustomControls.CustomControls.MessageDialogueControl
             >();
+            containerRegistry.RegisterDialog<UserLoginView, UserLoginViewModel>();
+
+            UserModel user = new();
+            containerRegistry.RegisterInstance<IUser>(user);
         }
 
         protected override void ConfigureRegionAdapterMappings(

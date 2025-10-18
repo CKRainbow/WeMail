@@ -10,24 +10,33 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 using WeMail.Common.Events;
+using WeMail.Common.Helpers;
 using WeMail.Common.MVVM;
+using WeMail.Common.User;
+using WeMail.Models;
 
 namespace WeMail.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private string _title = "Prism Application";
+        private string _title = "WeMail";
 
-        private ObservableCollection<IModuleInfo> _modules;
+        private ObservableCollection<MainModel> _modules;
 
         private readonly IRegionManager _regionManager; // manage the regions of the shell
         private readonly IModuleCatalog _moduleCatalog;
         private readonly IDialogService _dialogService;
         private readonly IEventAggregator _eventAggregator;
-        private ModuleInfo _moduleInfo;
+        private readonly IUser _user;
+        private MainModel _currentModel;
 
         private IRegionNavigationJournal _journal;
 
+        private DelegateCommand _loginCommand;
+        public DelegateCommand LoginCommand
+        {
+            get => _loginCommand ??= new DelegateCommand(LoginCommandAction);
+        }
         private DelegateCommand _loadModules;
         private DelegateCommand _openViewA;
         private DelegateCommand _openViewB;
@@ -44,17 +53,17 @@ namespace WeMail.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public ObservableCollection<IModuleInfo> Modules
+        public ObservableCollection<MainModel> Modules
         {
             get => _modules ??= new();
         }
 
-        public ModuleInfo ModuleInfo
+        public MainModel CurrentModel
         {
-            get => _moduleInfo;
+            get { return _currentModel; }
             set
             {
-                SetProperty(ref _moduleInfo, value);
+                SetProperty(ref _currentModel, value);
                 Navigate(value);
             }
         }
@@ -87,6 +96,11 @@ namespace WeMail.ViewModels
         public DelegateCommand ShowDialogue
         {
             get => _showDialogue ??= new(ShowDialogueAction);
+        }
+
+        private void LoginCommandAction()
+        {
+            Login.HandleLogin(_dialogService, _user);
         }
 
         public DelegateCommand<string> ShowDialogueWithParameter
@@ -197,6 +211,7 @@ namespace WeMail.ViewModels
             IModuleCatalog moduleCatalog,
             IDialogService dialogService,
             IEventAggregator eventAggregator,
+            IUser user,
             ILogger logger
         )
         {
@@ -206,6 +221,7 @@ namespace WeMail.ViewModels
             _moduleCatalog = moduleCatalog;
             _dialogService = dialogService;
             _eventAggregator = eventAggregator;
+            _user = user;
 
             CompositeCommand.RegisterCommand(OpenViewA);
             CompositeCommand.RegisterCommand(ShowDialogue);
@@ -224,18 +240,41 @@ namespace WeMail.ViewModels
         public void InitModules()
         {
             var dirModuleCatalog = _moduleCatalog as DirectoryModuleCatalog;
-            Modules.AddRange(dirModuleCatalog.Modules);
+            foreach (var moduleInfo in dirModuleCatalog.Modules)
+            {
+                switch (moduleInfo.ModuleName)
+                {
+                    case "Contact":
+                        _modules.Add(
+                            new MainModel
+                            {
+                                Name = moduleInfo.ModuleName,
+                                DisplayName = "联系人",
+                                IconPath = "contact_icon.png"
+                            }
+                        );
+                        break;
+                    case "Schedule":
+                        _modules.Add(
+                            new MainModel
+                            {
+                                Name = moduleInfo.ModuleName,
+                                DisplayName = "日程",
+                                IconPath = "schedule_icon.png"
+                            }
+                        );
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
-        private void Navigate(IModuleInfo moduleInfo)
+        private void Navigate(MainModel mainModel)
         {
             var parameter = new NavigationParameters();
             parameter.Add("Contact", "Hello from MainWindowViewModel");
-            _regionManager.RequestNavigate(
-                "ContentRegion",
-                $"{moduleInfo.ModuleName}View",
-                parameter
-            );
+            _regionManager.RequestNavigate("ContentRegion", $"{mainModel.Name}View", parameter);
         }
     }
 }

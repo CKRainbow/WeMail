@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WeMail.Common.Helpers
 {
-    public class MiniDump
+    public static class MiniDump
     {
         public enum MINIDUMP_TYPE
         {

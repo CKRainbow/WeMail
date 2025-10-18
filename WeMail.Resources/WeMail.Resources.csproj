@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="imgs\contact_icon.png" />
+    <None Remove="imgs\schedule_icon.png" />
+    <None Remove="imgs\wemail_logo.png" />
+    <None Remove="imgs\wemail_logo.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="imgs\contact_icon.png">
+    </Resource>
+    <Resource Include="imgs\schedule_icon.png">
+    </Resource>
+    <Resource Include="imgs\wemail_logo.png">
+    </Resource>
+    <Resource Include="imgs\wemail_logo.svg">
+    </Resource>
+  </ItemGroup>
+
+</Project>
