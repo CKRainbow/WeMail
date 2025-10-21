@@ -4,10 +4,16 @@
              xmlns:local="clr-namespace:WeMail.Contact.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cvt="clr-namespace:WeMail.Common.Converts;assembly=WeMail.Common"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <cvt:SexConverter x:Key="SexConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
@@ -23,6 +29,28 @@
         </StackPanel>
         <ListBox x:Name="LsbContact" Grid.Row="1"  ItemsSource="{Binding Contacts}"/>
         <Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Fill="White" Width="1" />
-        <ContentControl  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Content="{Binding ElementName=LsbContact,Path=SelectedItem}" FontSize="40" />
+        <Grid Grid.Row="2" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Text="名字"></TextBlock>
+            <TextBlock Grid.Row="1" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Text="邮箱"></TextBlock>
+            <TextBlock Grid.Row="2" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Text="手机号"></TextBlock>
+            <TextBlock Grid.Row="3" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Text="年龄"></TextBlock>
+            <TextBlock Grid.Row="4" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Text="性别"></TextBlock>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="{Binding ElementName=LsbContact,Path=SelectedItem.Name}"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="{Binding ElementName=LsbContact,Path=SelectedItem.Email}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="{Binding ElementName=LsbContact,Path=SelectedItem.PhoneNumber}"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="{Binding ElementName=LsbContact,Path=SelectedItem.Age}"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Text="{Binding ElementName=LsbContact,Path=SelectedItem.Sex, Converter={StaticResource SexConverter}}"/>
+        </Grid>
     </Grid>
 </UserControl>

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Windows;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -9,6 +13,10 @@ using WeMail.Common.Events;
 using WeMail.Common.Helpers;
 using WeMail.Common.MVVM;
 using WeMail.Common.User;
+using WeMail.Contact.Models;
+using WeMail.Contact.Views;
+using WeMail.DAL;
+using WeMail.DAL.DTOs;
 
 namespace WeMail.Contact.ViewModels
 {
@@ -18,7 +26,9 @@ namespace WeMail.Contact.ViewModels
         private IDialogService _dialogService;
         private IEventAggregator _eventAggregator;
 
-        private ObservableCollection<string> _contacts;
+        private DelegateCommand _addContactCommand;
+
+        private ObservableCollection<ContactModel> _contacts;
 
         private string _message;
         public string Message
@@ -27,9 +37,14 @@ namespace WeMail.Contact.ViewModels
             set { SetProperty(ref _message, value); }
         }
 
-        public ObservableCollection<string> Contacts
+        public ObservableCollection<ContactModel> Contacts
         {
-            get => _contacts ??= new ObservableCollection<string>();
+            get => _contacts ??= new ObservableCollection<ContactModel>();
+        }
+
+        public DelegateCommand AddContactCommand
+        {
+            get => _addContactCommand ??= new DelegateCommand(AddContactCommandAction);
         }
 
         public ContactViewModel(
@@ -46,9 +61,39 @@ namespace WeMail.Contact.ViewModels
 
         private void InitData()
         {
-            Message = "WeMail.Contact Prism Module loaded.";
-            Contacts.Add("联系人小张");
-            Contacts.Add("联系人小李");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Contacts.Clear();
+                var contactDtos = HttpHelper.getContacts();
+                Contacts.AddRange(contactDtos.Select(dto => ConvertToModel(dto)));
+            });
+        }
+
+        private static ContactModel ConvertToModel(ContactDto contactDto)
+        {
+            return new ContactModel
+            {
+                Name = contactDto.Name,
+                Age = contactDto.Age,
+                Email = contactDto.Email,
+                PhoneNumber = contactDto.PhoneNumber,
+                Sex = contactDto.Sex
+            };
+        }
+
+        private void AddContactCommandAction()
+        {
+            _dialogService.ShowDialog(
+                nameof(AddContactView),
+                r =>
+                {
+                    var result = r.Result;
+                    if (result == ButtonResult.OK)
+                    {
+                        InitData();
+                    }
+                }
+            );
         }
 
         private void OnMessagerReceived(MessagerEventModel messagerObject)

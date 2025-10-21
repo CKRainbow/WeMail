@@ -1,6 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using WeMail.Contact.ViewModels;
 using WeMail.Contact.Views;
 
 namespace WeMail.Contact
@@ -17,6 +18,8 @@ namespace WeMail.Contact
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<ContactView>();
+
+            containerRegistry.RegisterDialog<AddContactView, AddContactViewModel>();
         }
     }
 }
